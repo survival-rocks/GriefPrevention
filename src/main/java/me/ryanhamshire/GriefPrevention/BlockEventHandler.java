@@ -120,7 +120,7 @@ public class BlockEventHandler implements Listener
         String noBuildReason = GriefPrevention.instance.allowBreak(player, block, block.getLocation(), breakEvent);
         if (noBuildReason != null)
         {
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason);
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason, true);
             breakEvent.setCancelled(true);
             return;
         }
@@ -138,7 +138,7 @@ public class BlockEventHandler implements Listener
         String noBuildReason = GriefPrevention.instance.allowBuild(player, sign.getLocation(), sign.getType());
         if (noBuildReason != null)
         {
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason);
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason, true);
             event.setCancelled(true);
             return;
         }
@@ -207,7 +207,7 @@ public class BlockEventHandler implements Listener
             String noBuildReason = GriefPrevention.instance.allowBuild(player, block.getLocation(), block.getType());
             if (noBuildReason != null)
             {
-                GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason);
+                GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason, true);
                 placeEvent.setCancelled(true);
                 return;
             }
@@ -251,7 +251,7 @@ public class BlockEventHandler implements Listener
                 Location location = otherPlayer.getLocation();
                 if (!otherPlayer.equals(player) && location.distanceSquared(block.getLocation()) < 9 && player.canSee(otherPlayer))
                 {
-                    GriefPrevention.sendMessage(player, TextMode.Err, Messages.PlayerTooCloseForFire2);
+                    GriefPrevention.sendMessage(player, TextMode.Err, Messages.PlayerTooCloseForFire2, true);
                     placeEvent.setCancelled(true);
                     return;
                 }
@@ -278,11 +278,11 @@ public class BlockEventHandler implements Listener
                         return;
 
                     placeEvent.setCancelled(true);
-                    GriefPrevention.sendMessage(player, TextMode.Err, noContainerReason.get());
+                    GriefPrevention.sendMessage(player, TextMode.Err, noContainerReason.get(), true);
                     return;
                 }
             }
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason);
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason, true);
             placeEvent.setCancelled(true);
             return;
         }
@@ -475,7 +475,7 @@ public class BlockEventHandler implements Listener
             String noPlaceReason = claim.allowMoreActiveBlocks();
             if (noPlaceReason != null)
             {
-                GriefPrevention.sendMessage(player, TextMode.Err, noPlaceReason);
+                GriefPrevention.sendMessage(player, TextMode.Err, noPlaceReason, true);
                 placeEvent.setCancelled(true);
                 return;
             }
@@ -927,7 +927,7 @@ public class BlockEventHandler implements Listener
         if (allowContainer != null)
         {
             event.setCancelled(true);
-            GriefPrevention.sendMessage(shooter, TextMode.Err, allowContainer.get());
+            GriefPrevention.sendMessage(shooter, TextMode.Err, allowContainer.get(), true);
             return;
         }
     }

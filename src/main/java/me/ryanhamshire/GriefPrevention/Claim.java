@@ -567,8 +567,6 @@ public class Claim
         return () ->
         {
             String reason = GriefPrevention.instance.dataStore.getMessage(permission.getDenialMessage(), this.getOwnerName());
-            if (player != null && player.hasPermission("griefprevention.ignoreclaims"))
-                reason += "  " + GriefPrevention.instance.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
             return reason;
         };
     }
