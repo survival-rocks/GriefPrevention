@@ -1435,8 +1435,6 @@ public class EntityEventHandler implements Listener
                 Supplier<String> override = () ->
                 {
                     String message = GriefPrevention.instance.dataStore.getMessage(Messages.NoDamageClaimedEntity, claim.getOwnerName());
-                    if (finalAttacker.hasPermission("griefprevention.ignoreclaims"))
-                        message += "  " + GriefPrevention.instance.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
                     return message;
                 };
                 Supplier<String> noContainersReason = claim.checkPermission(attacker, ClaimPermission.Inventory, event, override);

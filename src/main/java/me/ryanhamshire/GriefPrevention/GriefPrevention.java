@@ -3451,8 +3451,6 @@ public class GriefPrevention extends JavaPlugin
                 if (material != Material.CHEST || playerData.getClaims().size() > 0 || GriefPrevention.instance.config_claims_automaticClaimsForNewPlayersRadius == -1)
                 {
                     String reason = this.dataStore.getMessage(Messages.NoBuildOutsideClaims);
-                    if (player.hasPermission("griefprevention.ignoreclaims"))
-                        reason += "  " + this.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
                     reason += "  " + this.dataStore.getMessage(Messages.CreativeBasicsVideo2, DataStore.CREATIVE_VIDEO_URL);
                     return reason;
                 }
@@ -3511,8 +3509,6 @@ public class GriefPrevention extends JavaPlugin
             if (this.creativeRulesApply(location) || this.config_claims_worldModes.get(location.getWorld()) == ClaimsMode.SurvivalRequiringClaims)
             {
                 String reason = this.dataStore.getMessage(Messages.NoBuildOutsideClaims);
-                if (player.hasPermission("griefprevention.ignoreclaims"))
-                    reason += "  " + this.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
                 reason += "  " + this.dataStore.getMessage(Messages.CreativeBasicsVideo2, DataStore.CREATIVE_VIDEO_URL);
                 return reason;
             }

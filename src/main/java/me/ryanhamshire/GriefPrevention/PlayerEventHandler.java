@@ -1311,9 +1311,6 @@ class PlayerEventHandler implements Listener
                 Supplier<String> override = () ->
                 {
                     String message = instance.dataStore.getMessage(Messages.NoDamageClaimedEntity, claim.getOwnerName());
-                    if (player.hasPermission("griefprevention.ignoreclaims"))
-                        message += "  " + instance.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
-
                     return message;
                 };
                 final Supplier<String> noContainersReason = claim.checkPermission(player, ClaimPermission.Inventory, event, override);
@@ -1373,11 +1370,6 @@ class PlayerEventHandler implements Listener
         if (failureReason != null)
         {
             String reason = failureReason.get();
-            if (player.hasPermission("griefprevention.ignoreclaims"))
-            {
-                reason += "  " + instance.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
-            }
-
             GriefPrevention.sendMessage(player, TextMode.Err, reason, true);
 
             //cancel the event by preventing hatching
