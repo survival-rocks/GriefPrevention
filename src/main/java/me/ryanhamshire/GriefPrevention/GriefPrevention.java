@@ -29,7 +29,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.BanList;
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.ChunkSnapshot;
 import org.bukkit.FluidCollisionMode;
@@ -3390,7 +3390,13 @@ public class GriefPrevention extends JavaPlugin
         }
         else
         {
-            if (actionbar) player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(color + message));
+            if (actionbar)
+            {
+                TextComponent component = new TextComponent(message);
+                component.setColor(color);
+                component.setUnderlined(true);
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
+            }
             else player.sendMessage(color + message);
         }
     }

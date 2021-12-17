@@ -19,7 +19,7 @@
 package me.ryanhamshire.GriefPrevention;
 
 import me.ryanhamshire.GriefPrevention.util.BoundingBox;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
