@@ -548,6 +548,16 @@ public class EntityEventHandler implements Listener
         }
     }
 
+    // prevent mobs from spawning in admin claims
+    @EventHandler
+    public void entitySpawn (CreatureSpawnEvent e)
+    {
+        if (!e.getSpawnReason().equals(SpawnReason.NATURAL) && !e.getSpawnReason().equals(SpawnReason.JOCKEY)) return;
+
+        Claim claim = this.dataStore.getClaimAt(e.getLocation(), false, null);
+        if (claim != null && claim.isAdminClaim()) e.setCancelled(true);
+    }
+
     //when an entity dies...
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onEntityDeath(EntityDeathEvent event)
