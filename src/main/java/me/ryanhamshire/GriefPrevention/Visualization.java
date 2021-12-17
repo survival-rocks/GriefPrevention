@@ -139,32 +139,31 @@ public class Visualization
 
         if (visualizationType == VisualizationType.Claim)
         {
-            cornerBlockData = Material.GLOWSTONE.createBlockData();
-            accentBlockData = Material.GOLD_BLOCK.createBlockData();
+            cornerBlockData = Material.SEA_LANTERN.createBlockData();
+            accentBlockData = Material.RED_CONCRETE.createBlockData();
         }
         else if (visualizationType == VisualizationType.AdminClaim)
         {
-            cornerBlockData = Material.GLOWSTONE.createBlockData();
-            accentBlockData = Material.PUMPKIN.createBlockData();
+            cornerBlockData = Material.SEA_LANTERN.createBlockData();
+            accentBlockData = Material.MAGENTA_CONCRETE.createBlockData();
         }
         else if (visualizationType == VisualizationType.Subdivision)
         {
-            cornerBlockData = Material.IRON_BLOCK.createBlockData();
-            accentBlockData = Material.WHITE_WOOL.createBlockData();
+            cornerBlockData = Material.SEA_LANTERN.createBlockData();
+            accentBlockData = Material.CYAN_CONCRETE.createBlockData();
         }
         else if (visualizationType == VisualizationType.RestoreNature)
         {
-            cornerBlockData = Material.DIAMOND_BLOCK.createBlockData();
-            accentBlockData = Material.DIAMOND_BLOCK.createBlockData();
+            cornerBlockData = Material.YELLOW_CONCRETE.createBlockData();
+            accentBlockData = Material.YELLOW_CONCRETE.createBlockData();
         }
         else
         {
-            cornerBlockData = Material.REDSTONE_ORE.createBlockData();
-            ((Lightable) cornerBlockData).setLit(true);
-            accentBlockData = Material.NETHERRACK.createBlockData();
+            cornerBlockData = Material.SEA_LANTERN.createBlockData();
+            accentBlockData = Material.ORANGE_CONCRETE.createBlockData();
         }
 
-        addClaimElements(claim.getLesserBoundaryCorner(), claim.getGreaterBoundaryCorner(), locality, height, cornerBlockData, accentBlockData, 10);
+        addClaimElements(claim.getLesserBoundaryCorner(), claim.getGreaterBoundaryCorner(), locality, height, cornerBlockData, accentBlockData, 2);
     }
 
     //adds a general claim cuboid (represented by min and max) visualization to the current visualization
@@ -183,10 +182,10 @@ public class Visualization
         //that will be added later for only the visualization elements within visualization range
 
         //locality
-        int minx = locality.getBlockX() - 75;
-        int minz = locality.getBlockZ() - 75;
-        int maxx = locality.getBlockX() + 75;
-        int maxz = locality.getBlockZ() + 75;
+        int minx = locality.getBlockX() - 150;
+        int minz = locality.getBlockZ() - 150;
+        int maxx = locality.getBlockX() + 150;
+        int maxz = locality.getBlockZ() + 150;
 
         //top line
         newElements.add(new VisualizationElement(new Location(world, smallx, 0, bigz), cornerBlockData, Material.AIR.createBlockData()));
