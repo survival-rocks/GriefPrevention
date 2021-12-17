@@ -782,7 +782,8 @@ public class EntityEventHandler implements Listener
     private void handleEntityDamageEvent(EntityDamageEvent event, boolean sendErrorMessagesToPlayers)
     {
         //monsters are never protected
-        if (isMonster(event.getEntity())) return;
+        boolean hostilePet = event.getEntity().getCustomName() == null || event.getEntity().getCustomName().contains("|");
+        if (isMonster(event.getEntity()) && hostilePet) return;
 
         //horse protections can be disabled
         if (event.getEntity() instanceof Horse && !GriefPrevention.instance.config_claims_protectHorses) return;
