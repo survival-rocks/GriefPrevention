@@ -337,7 +337,7 @@ public class EntityEventHandler implements Listener
     @EventHandler(ignoreCancelled = true)
     void onTNTExitPortal(EntityPortalExitEvent event)
     {
-        if (event.getEntityType() != EntityType.PRIMED_TNT)
+        if (event.getEntityType() != EntityType.TNT)
             return;
         if (event.getTo().getWorld().getEnvironment() != Environment.THE_END)
             return;
@@ -1050,7 +1050,7 @@ public class EntityEventHandler implements Listener
                     || subEvent.getEntityType() == EntityType.GLOW_ITEM_FRAME
                     || subEvent.getEntityType() == EntityType.ARMOR_STAND
                     || subEvent.getEntityType() == EntityType.VILLAGER
-                    || subEvent.getEntityType() == EntityType.ENDER_CRYSTAL)
+                    || subEvent.getEntityType() == EntityType.END_CRYSTAL)
             {
                 //allow for disabling villager protections in the config
                 if (subEvent.getEntityType() == EntityType.VILLAGER && !GriefPrevention.instance.config_claims_protectCreatures)
@@ -1174,7 +1174,7 @@ public class EntityEventHandler implements Listener
                         && damageSource != null
                         && damageSource.getType() != EntityType.CREEPER
                         && damageSource.getType() != EntityType.WITHER
-                        && damageSource.getType() != EntityType.ENDER_CRYSTAL
+                        && damageSource.getType() != EntityType.END_CRYSTAL
                         && damageSource.getType() != EntityType.AREA_EFFECT_CLOUD
                         && damageSource.getType() != EntityType.WITCH
                         && !(damageSource instanceof Projectile)
@@ -1237,7 +1237,7 @@ public class EntityEventHandler implements Listener
 
                             //kill the arrow to avoid infinite bounce between crowded together animals //RoboMWM: except for tridents
                             if (arrow != null && arrow.getType() != EntityType.TRIDENT) arrow.remove();
-                            if (damageSource != null && damageSource.getType() == EntityType.FIREWORK && event.getEntity().getType() != EntityType.PLAYER)
+                            if (damageSource != null && damageSource.getType() == EntityType.FIREWORK_ROCKET && event.getEntity().getType() != EntityType.PLAYER)
                                 return;
 
                             if (sendErrorMessagesToPlayers)
@@ -1411,7 +1411,7 @@ public class EntityEventHandler implements Listener
         }
 
         //if not a player and not an explosion, always allow
-        if (attacker == null && damageSourceType != EntityType.CREEPER && damageSourceType != EntityType.WITHER && damageSourceType != EntityType.PRIMED_TNT)
+        if (attacker == null && damageSourceType != EntityType.CREEPER && damageSourceType != EntityType.WITHER && damageSourceType != EntityType.TNT)
         {
             return;
         }
@@ -1484,9 +1484,9 @@ public class EntityEventHandler implements Listener
 
             // Restrict some potions on claimed villagers and animals.
             // Griefers could use potions to kill entities or steal them over fences.
-            if (PotionEffectType.HARM.equals(effectType)
+            if (PotionEffectType.INSTANT_DAMAGE.equals(effectType)
                     || PotionEffectType.POISON.equals(effectType)
-                    || PotionEffectType.JUMP.equals(effectType)
+                    || PotionEffectType.JUMP_BOOST.equals(effectType)
                     || PotionEffectType.WITHER.equals(effectType))
             {
                 Claim cachedClaim = null;
@@ -1594,14 +1594,14 @@ public class EntityEventHandler implements Listener
     public static final HashSet<PotionEffectType> positiveEffects = new HashSet<>(Arrays.asList
             (
                     PotionEffectType.ABSORPTION,
-                    PotionEffectType.DAMAGE_RESISTANCE,
-                    PotionEffectType.FAST_DIGGING,
+                    PotionEffectType.RESISTANCE,
+                    PotionEffectType.HASTE,
                     PotionEffectType.FIRE_RESISTANCE,
-                    PotionEffectType.HEAL,
+                    PotionEffectType.REGENERATION,
                     PotionEffectType.HEALTH_BOOST,
-                    PotionEffectType.INCREASE_DAMAGE,
+                    PotionEffectType.STRENGTH,
                     PotionEffectType.INVISIBILITY,
-                    PotionEffectType.JUMP,
+                    PotionEffectType.JUMP_BOOST,
                     PotionEffectType.NIGHT_VISION,
                     PotionEffectType.REGENERATION,
                     PotionEffectType.SATURATION,

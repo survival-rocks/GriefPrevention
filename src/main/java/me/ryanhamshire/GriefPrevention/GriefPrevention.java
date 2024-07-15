@@ -692,7 +692,7 @@ public class GriefPrevention extends JavaPlugin
         this.config_siege_blocks = EnumSet.noneOf(Material.class);
         this.config_siege_blocks.add(Material.DIRT);
         this.config_siege_blocks.add(Material.GRASS_BLOCK);
-        this.config_siege_blocks.add(Material.GRASS);
+        this.config_siege_blocks.add(Material.SHORT_GRASS);
         this.config_siege_blocks.add(Material.FERN);
         this.config_siege_blocks.add(Material.DEAD_BUSH);
         this.config_siege_blocks.add(Material.COBBLESTONE);
@@ -3480,7 +3480,19 @@ public class GriefPrevention extends JavaPlugin
             playerData.lastClaim = claim;
             Block block = location.getBlock();
 
-            Supplier<String> supplier = claim.checkPermission(player, ClaimPermission.Build, new BlockPlaceEvent(block, block.getState(), block, new ItemStack(material), player, true, EquipmentSlot.HAND));
+            Supplier<String> supplier = claim.checkPermission(
+                    player,
+                    ClaimPermission.Build,
+                    new BlockPlaceEvent(
+                            block,
+                            block.getState(),
+                            block,
+                            new ItemStack(material),
+                            player,
+                            true,
+                            EquipmentSlot.HAND
+                    )
+            );
 
             if (supplier == null) return null;
 
@@ -3712,23 +3724,23 @@ public class GriefPrevention extends JavaPlugin
 
     static void banPlayer(Player player, String reason, String source)
     {
-        if (GriefPrevention.instance.config_ban_useCommand)
-        {
-            Bukkit.getServer().dispatchCommand(
-                    Bukkit.getConsoleSender(),
-                    GriefPrevention.instance.config_ban_commandFormat.replace("%name%", player.getName()).replace("%reason%", reason));
-        }
-        else
-        {
-            BanList bans = Bukkit.getServer().getBanList(Type.NAME);
-            bans.addBan(player.getName(), reason, null, source);
-
-            //kick
-            if (player.isOnline())
-            {
-                player.kickPlayer(reason);
-            }
-        }
+//        if (GriefPrevention.instance.config_ban_useCommand)
+//        {
+//            Bukkit.getServer().dispatchCommand(
+//                    Bukkit.getConsoleSender(),
+//                    GriefPrevention.instance.config_ban_commandFormat.replace("%name%", player.getName()).replace("%reason%", reason));
+//        }
+//        else
+//        {
+//            BanList bans = Bukkit.getServer().getBanList(Type.NAME);
+//            bans.addBan(player.getName(), reason, null, source);
+//
+//            //kick
+//            if (player.isOnline())
+//            {
+//                player.kickPlayer(reason);
+//            }
+//        }
     }
 
     public ItemStack getItemInHand(Player player, EquipmentSlot hand)
