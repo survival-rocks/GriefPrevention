@@ -29,7 +29,7 @@ public abstract class BlockBoundaryVisualization extends BoundaryVisualization
      */
     protected BlockBoundaryVisualization(@NotNull World world, @NotNull IntVector visualizeFrom, int height)
     {
-        this(world, visualizeFrom, height, 10, 75);
+        this(world, visualizeFrom, height, 2, 150);
     }
 
     /**

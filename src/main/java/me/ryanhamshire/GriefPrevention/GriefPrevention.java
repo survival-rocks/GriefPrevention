@@ -26,10 +26,12 @@ import com.griefprevention.protection.ProtectionHelper;
 import me.ryanhamshire.GriefPrevention.DataStore.NoTransferException;
 import me.ryanhamshire.GriefPrevention.events.SaveTrappedPlayerEvent;
 import me.ryanhamshire.GriefPrevention.events.TrustChangedEvent;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.BanList;
 import org.bukkit.BanList.Type;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Chunk;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -2775,18 +2777,31 @@ public class GriefPrevention extends JavaPlugin
     //sends a color-coded message to a player
     public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @NotNull Messages messageID, @NotNull String @NotNull ... args)
     {
-        sendMessage(player, color, messageID, 0, args);
+        sendMessage(player, color, messageID, 0, false, args);
+    }
+
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @NotNull Messages messageID, boolean actionbar, @NotNull String @NotNull ... args)
+    {
+        sendMessage(player, color, messageID, 0, actionbar, args);
+    }
+
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @NotNull Messages messageID, long delayInTicks, @NotNull String @NotNull ... args) {
+        sendMessage(player, color, messageID, delayInTicks, false, args);
     }
 
     //sends a color-coded message to a player
-    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @NotNull Messages messageID, long delayInTicks, @NotNull String @NotNull ... args)
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @NotNull Messages messageID, long delayInTicks, boolean actionbar, @NotNull String @NotNull ... args)
     {
         String message = GriefPrevention.instance.dataStore.getMessage(messageID, args);
-        sendMessage(player, color, message, delayInTicks);
+        sendMessage(player, color, message, delayInTicks, actionbar);
+    }
+
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message) {
+        sendMessage(player, color, message, false);
     }
 
     //sends a color-coded message to a player
-    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message)
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message, boolean actionbar)
     {
         if (message == null || message.isBlank()) return;
 
@@ -2797,15 +2812,25 @@ public class GriefPrevention extends JavaPlugin
         }
         else
         {
-            player.sendMessage(color + message);
+            if (actionbar) {
+                var component = new TextComponent(message);
+                component.setColor(color);
+                component.setUnderlined(true);
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, component);
+            }
+            else player.sendMessage(color + message);
         }
     }
 
-    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message, long delayInTicks)
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message, long delayInTicks) {
+        sendMessage(player, color, message, delayInTicks, false);
+    }
+
+    public static void sendMessage(@Nullable Player player, @NotNull ChatColor color, @Nullable String message, long delayInTicks, boolean actionbar)
     {
         if (message == null || message.isBlank()) return;
 
-        SendPlayerMessageTask task = new SendPlayerMessageTask(player, color, message);
+        SendPlayerMessageTask task = new SendPlayerMessageTask(player, color, message, actionbar);
 
         //Only schedule if there should be a delay. Otherwise, send the message right now, else the message will appear out of order.
         if (delayInTicks > 0)

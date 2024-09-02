@@ -23,7 +23,7 @@ import com.griefprevention.visualization.VisualizationType;
 import me.ryanhamshire.GriefPrevention.util.BoundingBox;
 import com.griefprevention.protection.ProtectionHelper;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -130,7 +130,7 @@ public class BlockEventHandler implements Listener
         Supplier<String> noBuildReason = ProtectionHelper.checkPermission(player, block.getLocation(), ClaimPermission.Build, breakEvent);
         if (noBuildReason != null)
         {
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get(), true);
             breakEvent.setCancelled(true);
             return;
         }
@@ -148,7 +148,7 @@ public class BlockEventHandler implements Listener
         Supplier<String> noBuildReason = ProtectionHelper.checkPermission(player, sign.getLocation(), ClaimPermission.Build, event);
         if (noBuildReason != null)
         {
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get(), true);
             event.setCancelled(true);
             return;
         }
@@ -217,7 +217,7 @@ public class BlockEventHandler implements Listener
             Supplier<String> noBuildReason = ProtectionHelper.checkPermission(player, block.getLocation(), ClaimPermission.Build, placeEvent);
             if (noBuildReason != null)
             {
-                GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get());
+                GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get(), true);
                 placeEvent.setCancelled(true);
                 return;
             }
@@ -261,7 +261,7 @@ public class BlockEventHandler implements Listener
                 Location location = otherPlayer.getLocation();
                 if (!otherPlayer.equals(player) && location.distanceSquared(block.getLocation()) < 9 && player.canSee(otherPlayer))
                 {
-                    GriefPrevention.sendMessage(player, TextMode.Err, Messages.PlayerTooCloseForFire2);
+                    GriefPrevention.sendMessage(player, TextMode.Err, Messages.PlayerTooCloseForFire2, true);
                     placeEvent.setCancelled(true);
                     return;
                 }
@@ -288,11 +288,11 @@ public class BlockEventHandler implements Listener
                         return;
 
                     placeEvent.setCancelled(true);
-                    GriefPrevention.sendMessage(player, TextMode.Err, noContainerReason.get());
+                    GriefPrevention.sendMessage(player, TextMode.Err, noContainerReason.get(), true);
                     return;
                 }
             }
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get(), true);
             placeEvent.setCancelled(true);
             return;
         }
@@ -853,7 +853,7 @@ public class BlockEventHandler implements Listener
                 if (supplier != null)
                 {
                     // Warn when denied access to a claim.
-                    GriefPrevention.sendMessage(player, TextMode.Err, supplier.get());
+                    GriefPrevention.sendMessage(player, TextMode.Err, supplier.get(), true);
                     return true;
                 }
                 return false;
@@ -1282,7 +1282,7 @@ public class BlockEventHandler implements Listener
 
                 if (noPortalReason != null)
                 {
-                    GriefPrevention.sendMessage(player, TextMode.Err, noPortalReason.get());
+                    GriefPrevention.sendMessage(player, TextMode.Err, noPortalReason.get(), true);
                     player.setPortalCooldown(40);
                     return true;
                 }

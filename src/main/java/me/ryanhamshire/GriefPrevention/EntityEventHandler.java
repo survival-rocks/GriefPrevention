@@ -89,6 +89,19 @@ public class EntityEventHandler implements Listener
         instance = plugin;
     }
 
+    // prevent mobs from spawning in admin claims
+    @EventHandler
+    public void entitySpawn(CreatureSpawnEvent event) {
+        if (event.getSpawnReason() != SpawnReason.NATURAL && event.getSpawnReason() != SpawnReason.JOCKEY) {
+            return;
+        }
+
+        Claim claim = this.dataStore.getClaimAt(event.getLocation(), false, null);
+        if (claim != null && claim.isAdminClaim()) {
+            event.setCancelled(true);
+        }
+    }
+
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onEntityFormBlock(EntityBlockFormEvent event)
     {
@@ -795,7 +808,7 @@ public class EntityEventHandler implements Listener
         if (noBuildReason != null)
         {
             event.setCancelled(true);
-            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(player, TextMode.Err, noBuildReason.get(), true);
         }
     }
 
@@ -831,7 +844,7 @@ public class EntityEventHandler implements Listener
         if (!playerData.receivedDropUnlockAdvertisement)
         {
             GriefPrevention.sendMessage(owner.getPlayer(), TextMode.Instr, Messages.DropUnlockAdvertisement);
-            GriefPrevention.sendMessage(player, TextMode.Err, Messages.PickupBlockedExplanation, GriefPrevention.lookupPlayerName(ownerID));
+            GriefPrevention.sendMessage(player, TextMode.Err, Messages.PickupBlockedExplanation, true, GriefPrevention.lookupPlayerName(ownerID));
             playerData.receivedDropUnlockAdvertisement = true;
         }
     }

@@ -122,7 +122,8 @@ public class EntityDamageHandler implements Listener
     private void handleEntityDamageEvent(@NotNull EntityDamageInstance event, boolean sendMessages)
     {
         //monsters are never protected
-        if (isHostile(event.damaged())) return;
+        boolean notHostilePet = event.damaged().getCustomName() == null || event.damaged().getCustomName().contains("|");
+        if (isHostile(event.damaged()) && notHostilePet) return;
 
         //horse protections can be disabled
         if (event.damaged() instanceof Horse && !instance.config_claims_protectHorses) return;
@@ -130,13 +131,13 @@ public class EntityDamageHandler implements Listener
         if (event.damaged() instanceof Mule && !instance.config_claims_protectDonkeys) return;
         if (event.damaged() instanceof Llama && !instance.config_claims_protectLlamas) return;
         //protected death loot can't be destroyed, only picked up or despawned due to expiration
-        if (event.damaged().getType() == EntityType.ITEM)
-        {
-            if (event.damaged().hasMetadata("GP_ITEMOWNER"))
-            {
-                event.setCancelled(true);
-            }
-        }
+//        if (event.damaged().getType() == EntityType.ITEM)
+//        {
+//            if (event.damaged().hasMetadata("GP_ITEMOWNER"))
+//            {
+//                event.setCancelled(true);
+//            }
+//        }
 
         // Handle environmental damage to tamed animals that could easily be caused maliciously.
         if (handlePetDamageByEnvironment(event)) return;
@@ -500,8 +501,6 @@ public class EntityDamageHandler implements Listener
             {
                 String ownerName = GriefPrevention.lookupPlayerName(owner);
                 String message = dataStore.getMessage(Messages.NoDamageClaimedEntity, ownerName);
-                if (attacker.hasPermission("griefprevention.ignoreclaims"))
-                    message += "  " + dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
                 GriefPrevention.sendMessage(attacker, TextMode.Err, message);
             }
         }
@@ -688,8 +687,6 @@ public class EntityDamageHandler implements Listener
             override = () ->
             {
                 String message = dataStore.getMessage(Messages.NoDamageClaimedEntity, claim.getOwnerName());
-                if (finalAttacker.hasPermission("griefprevention.ignoreclaims"))
-                    message += "  " + dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
                 return message;
             };
         }
@@ -757,8 +754,6 @@ public class EntityDamageHandler implements Listener
         {
             String ownerName = GriefPrevention.lookupPlayerName(owner);
             String message = dataStore.getMessage(Messages.NoDamageClaimedEntity, ownerName);
-            if (attacker.hasPermission("griefprevention.ignoreclaims"))
-                message += "  " + dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
             GriefPrevention.sendMessage(attacker, TextMode.Err, message);
         }
         return true;
@@ -894,8 +889,6 @@ public class EntityDamageHandler implements Listener
         Supplier<String> override = () ->
         {
             String message = dataStore.getMessage(Messages.NoDamageClaimedEntity, claim.getOwnerName());
-            if (finalAttacker.hasPermission("griefprevention.ignoreclaims"))
-                message += "  " + dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
             return message;
         };
         Supplier<String> noContainersReason = claim.checkPermission(attacker, ClaimPermission.Inventory, event, override);

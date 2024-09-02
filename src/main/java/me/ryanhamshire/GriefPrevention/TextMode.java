@@ -18,7 +18,7 @@
 
 package me.ryanhamshire.GriefPrevention;
 
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 
 //just a few constants for chat color codes
 public final class TextMode

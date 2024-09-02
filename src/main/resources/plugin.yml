@@ -8,7 +8,7 @@ commands:
     abandonclaim:
       description: Deletes a claim.
       usage: /<command>
-      aliases: [unclaim, declaim, removeclaim, disclaim]
+      aliases: [unclaim]
       permission: griefprevention.claims
     abandontoplevelclaim:
       description: Deletes a claim and all its subdivisions.
@@ -21,12 +21,10 @@ commands:
     trust:
       description: Grants a player full access to your claim(s).
       usage: /<command> <player>  Grants a player permission to build.  See also /untrust, /containertrust, /accesstrust, and /permissiontrust.
-      aliases: tr
       permission: griefprevention.claims
     untrust:
       description: Revokes a player's access to your claim(s).
       usage: /<command> <player>
-      aliases: ut
       permission: griefprevention.claims
     containertrust:
       description: Grants a player access to your claim's containers, crops, animals, bed, buttons, and levers.
@@ -46,12 +44,11 @@ commands:
     subdivideclaims:
       description: Switches the shovel tool to subdivision mode, used to subdivide your claims.
       usage: /<command>
-      aliases: [sc, subdivideclaim]
+      aliases: [subdivideclaim]
       permission: griefprevention.claims
     restrictsubclaim:
       description: Restricts a subclaim, so that it inherits no permissions from the parent claim
       usage: /<command>
-      aliases: rsc
       permission: griefprevention.claims
     adjustbonusclaimblocks:
       description: Adds or subtracts bonus claim blocks for a player.
@@ -62,12 +59,10 @@ commands:
       description: Adds or subtracts bonus claim blocks for all online players.
       usage: /<command> <amount>
       permission: griefprevention.adjustclaimblocks
-      aliases: acball
     setaccruedclaimblocks:
       description: Updates a player's accrued claim block total.
       usage: /<command> <player> <amount>
       permission: griefprevention.adjustclaimblocks
-      aliases: scb
     deleteclaim:
       description: Deletes the claim you're standing in, even if it's not your claim.
       usage: /<command>
@@ -79,37 +74,28 @@ commands:
     deleteclaimsinworld:
       description: Deletes all the claims in a world.  Only usable at the server console.
       usage: /<command> <world>
-      aliases: [deleteallclaimsinworld, clearclaimsinworld, clearallclaimsinworld]
       permission: griefprevention.deleteclaimsinworld
     deleteuserclaimsinworld:
       description: Deletes all the non-admin claims in a world.  Only usable at the server console.
       usage: /<command> <world>
-      aliases: [deletealluserclaimsinworld, clearuserclaimsinworld, clearalluserclaimsinworld]
       permission: griefprevention.deleteclaimsinworld
     adminclaims:
       description: Switches the shovel tool to administrative claims mode.
       usage: /<command>
       permission: griefprevention.adminclaims
-      aliases: ac
     basicclaims:
       description: Switches the shovel tool back to basic claims mode.
       usage: /<command>
-      aliases: bc
       permission: griefprevention.claims
     extendclaim:
       description: Resizes the land claim you're standing in by pushing or pulling its boundary in the direction you're facing.
       usage: /<command> <numberOfBlocks>
-      aliases: [expandclaim, resizeclaim]
+      aliases: [expandclaim]
       permission: griefprevention.claims
     claim:
       description: Creates a land claim centered at your current location.
       usage: /<command> [optional radius]
-      aliases: [createclaim, makeclaim, newclaim]
       permission: griefprevention.claims
-    trapped:
-      description: Ejects you to nearby unclaimed land.  Has a substantial cooldown period.
-      usage: /<command>
-      permission: griefprevention.trapped
     trustlist:
       description: Lists permissions for the claim you're standing in.
       usage: /<command>
@@ -145,38 +131,10 @@ commands:
       description: Toggles whether explosives may be used in a specific land claim.
       usage: /<command>
       permission: griefprevention.claims
-      aliases: claimexplosion
-    softmute:
-      description: Toggles whether a player's messages will only reach other soft-muted players.
-      usage: /<command> <player>
-      permission: griefprevention.softmute
     gpreload:
       description: Reloads Grief Prevention's configuration settings.  Does NOT totally reload the entire plugin.
       usage: /<command>
       permission: griefprevention.reload
-    ignoreplayer:
-      description: Ignores another player's chat messages.
-      usage: /<command> <player name>
-      aliases: [ignore]
-      permission: griefprevention.ignore
-    unignoreplayer:
-      description: Unignores another player's chat messages.
-      usage: /<command> <player name>
-      aliases: [unignore]
-      permission: griefprevention.ignore
-    ignoredplayerlist:
-      description: Lists the players you're ignoring in chat.
-      usage: /<command>
-      aliases: [ignores, ignored, ignorelist, ignoredlist, listignores, listignored, ignoring]
-      permission: griefprevention.ignore
-    separate:
-      description: Forces two players to ignore each other in chat.
-      usage: /<command> <player1> <player2>
-      permission: griefprevention.separate
-    unseparate:
-      description: Reverses /separate.
-      usage: /<command> <player1> <player2>
-      permission: griefprevention.separate
     claimbook:
       description: Gives a player a manual about claiming land.
       usage: /<command> <player>

@@ -18,7 +18,7 @@
 
 package me.ryanhamshire.GriefPrevention;
 
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,12 +30,14 @@ class SendPlayerMessageTask implements Runnable
     private final Player player;
     private final ChatColor color;
     private final String message;
+    private final boolean actionbar;
 
-    public SendPlayerMessageTask(@Nullable Player player, @NotNull ChatColor color, @NotNull String message)
+    public SendPlayerMessageTask(@Nullable Player player, @NotNull ChatColor color, @NotNull String message, boolean actionbar)
     {
         this.player = player;
         this.color = color;
         this.message = message;
+        this.actionbar = actionbar;
     }
 
     @Override
@@ -57,7 +59,7 @@ class SendPlayerMessageTask implements Runnable
         //otherwise send it immediately
         else
         {
-            GriefPrevention.sendMessage(this.player, this.color, this.message);
+            GriefPrevention.sendMessage(this.player, this.color, this.message, actionbar);
         }
     }
 }

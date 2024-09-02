@@ -43,14 +43,14 @@ public class FakeBlockVisualization extends BlockBoundaryVisualization
     {
         return addBlockElement(switch (boundary.type())
         {
-            case SUBDIVISION -> Material.IRON_BLOCK.createBlockData();
-            case INITIALIZE_ZONE -> Material.DIAMOND_BLOCK.createBlockData();
-            case CONFLICT_ZONE -> {
-                BlockData fakeData = Material.REDSTONE_ORE.createBlockData();
+            case SUBDIVISION -> Material.VERDANT_FROGLIGHT.createBlockData(); // subdivision corner (verdant = green)
+            case INITIALIZE_ZONE -> Material.TARGET.createBlockData(); // claim creation corner
+            case CONFLICT_ZONE, ADMIN_CLAIM -> {
+                BlockData fakeData = Material.WAXED_COPPER_BULB.createBlockData();
                 ((Lightable) fakeData).setLit(true);
                 yield fakeData;
             }
-            default -> Material.GLOWSTONE.createBlockData();
+            default -> Material.OCHRE_FROGLIGHT.createBlockData(); // normal claim corner (ochre = yellow)
         });
     }
 
@@ -61,11 +61,11 @@ public class FakeBlockVisualization extends BlockBoundaryVisualization
         // Determine BlockData from boundary type to cache for reuse in function.
         return addBlockElement(switch (boundary.type())
         {
-            case ADMIN_CLAIM -> Material.PUMPKIN.createBlockData();
-            case SUBDIVISION -> Material.WHITE_WOOL.createBlockData();
-            case INITIALIZE_ZONE -> Material.DIAMOND_BLOCK.createBlockData();
-            case CONFLICT_ZONE -> Material.NETHERRACK.createBlockData();
-            default -> Material.GOLD_BLOCK.createBlockData();
+            case ADMIN_CLAIM -> Material.RED_TERRACOTTA.createBlockData();
+            case SUBDIVISION -> Material.LIME_CONCRETE.createBlockData();
+            case INITIALIZE_ZONE -> Material.TARGET.createBlockData();
+            case CONFLICT_ZONE -> Material.RED_CONCRETE.createBlockData();
+            default -> Material.YELLOW_CONCRETE.createBlockData();
         });
     }
 
