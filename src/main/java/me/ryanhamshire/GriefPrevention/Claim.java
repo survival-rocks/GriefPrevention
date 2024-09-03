@@ -507,8 +507,6 @@ public class Claim
         return () ->
         {
             String reason = GriefPrevention.instance.dataStore.getMessage(permission.getDenialMessage(), this.getOwnerName());
-            if (hasBypassPermission(player, permission))
-                reason += "  " + GriefPrevention.instance.dataStore.getMessage(Messages.IgnoreClaimsAdvertisement);
             return reason;
         };
     }

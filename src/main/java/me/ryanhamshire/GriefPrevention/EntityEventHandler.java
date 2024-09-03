@@ -299,7 +299,7 @@ public class EntityEventHandler implements Listener
             {
                 // Unlike entities where arrows rebound and may cause multiple alerts,
                 // projectiles lodged in blocks do not continuously re-trigger events.
-                GriefPrevention.sendMessage((Player) shooter, TextMode.Err, denial.get());
+                GriefPrevention.sendMessage((Player) shooter, TextMode.Err, denial.get(), true);
                 event.setCancelled(true);
             }
 
@@ -749,7 +749,7 @@ public class EntityEventHandler implements Listener
         if (noBuildReason != null)
         {
             event.setCancelled(true);
-            GriefPrevention.sendMessage(playerRemover, TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(playerRemover, TextMode.Err, noBuildReason.get(), true);
         }
     }
 
@@ -768,7 +768,7 @@ public class EntityEventHandler implements Listener
         if (noBuildReason != null)
         {
             event.setCancelled(true);
-            GriefPrevention.sendMessage(event.getPlayer(), TextMode.Err, noBuildReason.get());
+            GriefPrevention.sendMessage(event.getPlayer(), TextMode.Err, noBuildReason.get(), true);
             return;
         }
     }
